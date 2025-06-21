@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ÔN BÀI CÙNG SPEAK</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .container {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            text-align: center;
+            max-width: 500px;
+            width: 90%;
+        }
+        
+        .logo {
+            font-size: 2.5em;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            font-size: 1.2em;
+            color: #7f8c8d;
+            margin-bottom: 30px;
+        }
+        
+        .class-input {
+            margin-bottom: 30px;
+        }
+        
+        .class-input label {
+            display: block;
+            font-size: 1.1em;
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+        
+        .class-input input {
+            width: 100%;
+            padding: 15px;
+            font-size: 1.2em;
+            border: 2px solid #ecf0f1;
+            border-radius: 10px;
+            text-align: center;
+            font-weight: bold;
+            color: #2c3e50;
+            transition: all 0.3s ease;
+        }
+        
+        .class-input input:focus {
+            outline: none;
+            border-color: #3498db;
+            box-shadow: 0 0 10px rgba(52, 152, 219, 0.3);
+        }
+        
+        .enter-btn {
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 1.2em;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+        
+        .enter-btn:hover {
+            background: #2980b9;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+        
+        .enter-btn:active {
+            transform: translateY(0);
+        }
+        
+        .error-message {
+            color: #e74c3c;
+            font-size: 0.9em;
+            margin-top: 10px;
+            display: none;
+        }
+        
+        .admin-link {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #ecf0f1;
+        }
+        
+        .admin-link a {
+            color: #7f8c8d;
+            text-decoration: none;
+            font-size: 0.9em;
+        }
+        
+        .admin-link a:hover {
+            color: #3498db;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 30px 20px;
+            }
+            
+            .logo {
+                font-size: 2em;
+            }
+            
+            .subtitle {
+                font-size: 1em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">📚 SPEAK</div>
+        <div class="subtitle">ÔN BÀI CÙNG SPEAK</div>
+        
+        <form id="classForm">
+            <div class="class-input">
+                <label for="classCode">Nhập mã lớp:</label>
+                <input type="text" id="classCode" placeholder="VD: TALK TO KID" required>
+            </div>
+            
+            <button type="submit" class="enter-btn">🚀 VÀO LỚP</button>
+            
+            <div id="errorMessage" class="error-message">
+                Vui lòng nhập mã lớp hợp lệ!
+            </div>
+        </form>
+        
+        <div class="admin-link">
+            <a href="admin.html">👨‍💼 Quản lý (Admin)</a>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('classForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const classCode = document.getElementById('classCode').value.trim().toUpperCase();
+            
+            if (classCode) {
+                // Chuyển đến trang học tập với mã lớp
+                window.location.href = `study.html?class=${encodeURIComponent(classCode)}`;
+            } else {
+                document.getElementById('errorMessage').style.display = 'block';
+            }
+        });
+        
+        // Ẩn thông báo lỗi khi người dùng bắt đầu nhập
+        document.getElementById('classCode').addEventListener('input', function() {
+            document.getElementById('errorMessage').style.display = 'none';
+        });
+        
+        // Enter để submit
+        document.getElementById('classCode').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                document.getElementById('classForm').dispatchEvent(new Event('submit'));
+            }
+        });
+    </script>
+</body>
+</html> 

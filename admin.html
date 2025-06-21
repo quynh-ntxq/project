@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Quản lý ÔN BÀI CÙNG SPEAK</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f5f5f5;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .header h1 {
+            color: #2c3e50;
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+        
+        .header p {
+            color: #7f8c8d;
+            font-size: 1.1em;
+        }
+        
+        .back-link {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: #3498db;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        
+        .back-link:hover {
+            text-decoration: underline;
+        }
+        
+        .upload-section {
+            margin-bottom: 30px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            border: 2px dashed #dee2e6;
+        }
+        
+        .upload-section h3 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+        }
+        
+        .file-input {
+            display: none;
+        }
+        
+        .file-label {
+            display: inline-block;
+            padding: 12px 24px;
+            background: #3498db;
+            color: white;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+        
+        .file-label:hover {
+            background: #2980b9;
+            transform: translateY(-2px);
+        }
+        
+        .file-info {
+            margin-top: 10px;
+            font-size: 0.9em;
+            color: #6c757d;
+        }
+        
+        .classes-section {
+            margin-top: 30px;
+        }
+        
+        .classes-section h3 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+        }
+        
+        .class-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 15px;
+        }
+        
+        .class-card {
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 10px;
+            padding: 20px;
+            transition: all 0.3s ease;
+        }
+        
+        .class-card:hover {
+            border-color: #3498db;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .class-name {
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .class-stats {
+            font-size: 0.9em;
+            color: #6c757d;
+            margin-bottom: 15px;
+        }
+        
+        .class-link {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background: #27ae60;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            text-align: center;
+            font-weight: bold;
+            margin-bottom: 10px;
+            transition: all 0.3s ease;
+        }
+        
+        .class-link:hover {
+            background: #229954;
+            transform: translateY(-2px);
+        }
+        
+        .copy-btn {
+            width: 100%;
+            padding: 8px;
+            background: #f39c12;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+        
+        .copy-btn:hover {
+            background: #e67e22;
+        }
+        
+        .export-btn {
+            width: 100%;
+            padding: 8px;
+            background: #9b59b6;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-top: 5px;
+            transition: all 0.3s ease;
+        }
+        
+        .export-btn:hover {
+            background: #8e44ad;
+        }
+        
+        .no-data {
+            text-align: center;
+            color: #6c757d;
+            font-style: italic;
+            padding: 40px;
+        }
+        
+        .loading {
+            text-align: center;
+            color: #3498db;
+            padding: 20px;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+                margin: 10px;
+            }
+            
+            .class-list {
+                grid-template-columns: 1fr;
+            }
+            
+            .header h1 {
+                font-size: 1.5em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="index.html" class="back-link">← Quay lại trang chính</a>
+        
+        <div class="header">
+            <h1>👨‍💼 Admin Panel</h1>
+            <p>Quản lý và tạo link cho các lớp học</p>
+        </div>
+        
+        <div class="upload-section">
+            <h3>📁 Upload File Excel</h3>
+            <label for="excelFile" class="file-label">
+                Chọn file Excel (.xlsx)
+            </label>
+            <input type="file" id="excelFile" class="file-input" accept=".xlsx,.xls">
+            <div class="file-info" id="fileInfo">Chưa chọn file nào</div>
+        </div>
+        
+        <div class="classes-section">
+            <h3>📚 Danh sách các lớp</h3>
+            <div id="classList" class="class-list">
+                <div class="no-data">Vui lòng upload file Excel để xem danh sách lớp</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SheetJS CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <!-- Config file -->
+    <script src="config.js"></script>
+    <!-- Main script -->
+    <script src="admin.js"></script>
+</body>
+</html> 

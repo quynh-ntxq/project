@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mở tất cả lớp - ÔN BÀI CÙNG SPEAK</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .container {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            text-align: center;
+            max-width: 600px;
+            width: 90%;
+        }
+        
+        .header {
+            margin-bottom: 30px;
+        }
+        
+        .header h1 {
+            font-size: 2em;
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .header p {
+            color: #7f8c8d;
+            font-size: 1.1em;
+        }
+        
+        .file-upload {
+            margin-bottom: 30px;
+            padding: 20px;
+            border: 2px dashed #ddd;
+            border-radius: 10px;
+            background: #f8f9fa;
+        }
+        
+        .file-input {
+            display: none;
+        }
+        
+        .file-label {
+            cursor: pointer;
+            padding: 12px 24px;
+            background: #3498db;
+            color: white;
+            border-radius: 8px;
+            display: inline-block;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+        
+        .file-label:hover {
+            background: #2980b9;
+            transform: translateY(-2px);
+        }
+        
+        .file-info {
+            margin-top: 10px;
+            font-size: 0.9em;
+            color: #6c757d;
+        }
+        
+        .classes-section {
+            margin-top: 30px;
+        }
+        
+        .classes-section h3 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+        }
+        
+        .class-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .class-item {
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            padding: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .class-item:hover {
+            border-color: #3498db;
+            background: #e3f2fd;
+            transform: translateY(-2px);
+        }
+        
+        .class-item.selected {
+            background: #3498db;
+            color: white;
+            border-color: #3498db;
+        }
+        
+        .class-name {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        .class-count {
+            font-size: 0.8em;
+            opacity: 0.8;
+        }
+        
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            font-size: 1em;
+        }
+        
+        .btn-primary {
+            background: #27ae60;
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: #229954;
+            transform: translateY(-2px);
+        }
+        
+        .btn-secondary {
+            background: #95a5a6;
+            color: white;
+        }
+        
+        .btn-secondary:hover {
+            background: #7f8c8d;
+            transform: translateY(-2px);
+        }
+        
+        .btn:disabled {
+            background: #bdc3c7;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .back-link {
+            display: inline-block;
+            margin-top: 20px;
+            color: #3498db;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        
+        .back-link:hover {
+            text-decoration: underline;
+        }
+        
+        .no-data {
+            text-align: center;
+            color: #6c757d;
+            font-style: italic;
+            padding: 40px;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 30px 20px;
+            }
+            
+            .header h1 {
+                font-size: 1.5em;
+            }
+            
+            .class-list {
+                grid-template-columns: 1fr;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+            }
+            
+            .btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🚀 Mở tất cả lớp</h1>
+            <p>Upload file Excel và mở tất cả lớp trong các tab riêng biệt</p>
+        </div>
+        
+        <div class="file-upload">
+            <label for="excelFile" class="file-label">
+                📁 Chọn file Excel (.xlsx)
+            </label>
+            <input type="file" id="excelFile" class="file-input" accept=".xlsx,.xls">
+            <div class="file-info" id="fileInfo">Chưa chọn file nào</div>
+        </div>
+        
+        <div class="classes-section">
+            <h3>📚 Danh sách lớp</h3>
+            <div id="classList" class="class-list">
+                <div class="no-data">Vui lòng upload file Excel để xem danh sách lớp</div>
+            </div>
+            
+            <div class="action-buttons">
+                <button class="btn btn-primary" id="openAllBtn" disabled>
+                    🚀 Mở tất cả lớp
+                </button>
+                <button class="btn btn-secondary" id="selectAllBtn" disabled>
+                    ✅ Chọn tất cả
+                </button>
+                <button class="btn btn-secondary" id="deselectAllBtn" disabled>
+                    ❌ Bỏ chọn tất cả
+                </button>
+            </div>
+        </div>
+        
+        <a href="index.html" class="back-link">← Quay lại trang chính</a>
+    </div>
+
+    <!-- SheetJS CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <script src="open-all-classes.js"></script>
+</body>
+</html> 
