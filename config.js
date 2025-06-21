@@ -1,7 +1,7 @@
 // Cấu hình ứng dụng
 const CONFIG = {
     // URL của file Excel trên GitHub (thay đổi theo repository của bạn)
-    GITHUB_EXCEL_URL: 'https://raw.githubusercontent.com/your-username/your-repo/main/Uspeak_sample.xlsx',
+    GITHUB_EXCEL_URL: 'https://raw.githubusercontent.com/quynh-ntxq/project/main/Uspeak_sample.xlsx',
     
     // Tên file Excel mặc định
     DEFAULT_EXCEL_FILENAME: 'Uspeak_sample.xlsx',
